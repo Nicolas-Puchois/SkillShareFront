@@ -1,14 +1,75 @@
+import { fetchData } from "../../lib/fetchData.js";
 import { validateRegisterForm } from "../../services/validate.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const registerForm = document.querySelector("#register-form");
-  registerForm.addEventListener("submit", (e) => {
+  registerForm.addEventListener("submit", async (e) => {
+    const API_URL = document.querySelector("#api-url").value;
     e.preventDefault();
     registerForm
       .querySelectorAll(".error")
       //    réinitialisation des champs erreurs a vides
       .forEach((span) => (span.textContent = ""));
+    registerForm
+      .querySelectorAll(".error-input")
+      .forEach((input) => input.classList.remove("error-input"));
     // Validation des donnée
     const { valid, errors } = validateRegisterForm(registerForm);
+
+    if (!valid) {
+      for (const [field, message] of Object.entries(errors)) {
+        const errorSpan = registerForm.querySelector(`[data-error="${field}"]`);
+        const input = document.querySelector(`[name="${field}"]`);
+        if (errorSpan) errorSpan.textContent = message;
+        if (input) {
+          input.classList.add("error-input");
+        }
+      }
+      return;
+    }
+    // Recuperation des saisie via les attributs'name" => value
+    const formData = new FormData(registerForm);
+
+    const jsonData = {};
+    formData.forEach((value, key) => {
+      if (key != "avatar") {
+        jsonData[key] = value;
+      }
+    });
+    // transforme l'objet en fichier json
+    // const jsonDataString = JSON.stringify(jsonData);
+    // console.log(jsonDataString);
+
+    const avatarFile = formData.get("avatar");
+    if (avatarFile && avatarFile.size > 0) {
+      const avatarFileData = new FormData();
+      avatarFileData.append("avatar", avatarFile);
+
+      try {
+        const result = await fetchData({
+          route: "/api/upload-avatar",
+          api: API_URL,
+          options: {
+            method: "POST",
+            body: avatarFileData,
+          },
+        });
+      } catch (error) {
+        //  mesage utilisateur
+      }
+    }
+
+    try {
+      const result = await fetchData({
+        route: "/register",
+        api: API_URL,
+        options: {
+          method: "POST",
+          body: JSON.stringify(jsonData),
+        },
+      });
+    } catch (error) {
+      //  mesage utilisateur
+    }
   });
 });
