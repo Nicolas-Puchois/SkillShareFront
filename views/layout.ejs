@@ -12,6 +12,9 @@
   <% if(title == "Inscription") { %>
   <link rel="stylesheet" href="<%= process.env.SITE_URL %>/assets/styles/formulaire/formulaire.css">
   <% ;} %>
+  <% if(title == "Vérification email") { %>
+  <link rel="stylesheet" href="<%= process.env.SITE_URL %>/assets/styles/verify-mail/verify-mail.css">
+  <% ;} %>
 
   <title><%= title || "shareSkill" %></title>
 </head>
@@ -26,6 +29,9 @@
   <script type="module" src="<%= process.env.SITE_URL %>/assets/js/navbar.js"></script>
   <% if (title == "Inscription") { %>
   <script type="module" src="<%= process.env.SITE_URL %>/assets/js/register.js"></script>
+  <% } %>
+  <% if (title == "Vérification email") { %>
+  <script type="module" src="<%= process.env.SITE_URL %>/assets/js/verification-email.js"></script>
   <% } %>
 </body>
 

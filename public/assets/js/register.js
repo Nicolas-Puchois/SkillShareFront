@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const registerForm = document.querySelector("#register-form");
   registerForm.addEventListener("submit", async (e) => {
     const API_URL = document.querySelector("#api-url").value;
+    const message = document.querySelector("#verify-msg");
     e.preventDefault();
     registerForm
       .querySelectorAll(".error")
@@ -36,9 +37,6 @@ document.addEventListener("DOMContentLoaded", () => {
         jsonData[key] = value;
       }
     });
-    // transforme l'objet en fichier json
-    // const jsonDataString = JSON.stringify(jsonData);
-    // console.log(jsonDataString);
 
     const avatarFile = formData.get("avatar");
     if (avatarFile && avatarFile.size > 0) {
@@ -47,13 +45,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
       try {
         const result = await fetchData({
-          route: "/api/upload-avatar",
+          route: "/upload-avatar",
           api: API_URL,
           options: {
             method: "POST",
             body: avatarFileData,
           },
         });
+        jsonData.avatar = result.filename;
       } catch (error) {
         //  mesage utilisateur
       }
@@ -68,8 +67,19 @@ document.addEventListener("DOMContentLoaded", () => {
           body: JSON.stringify(jsonData),
         },
       });
+
+      if (!result.success) {
+        throw new Error(result.error);
+      }
+      if (result.success) {
+        registerForm.reset();
+        message.textContent =
+          "Inscription réussi. Vérifier votre messagerie pour activer le compte";
+        message.style.color = "green";
+      }
     } catch (error) {
-      //  mesage utilisateur
+      message.textContent = error.message;
+      message.style.color = "red";
     }
   });
 });

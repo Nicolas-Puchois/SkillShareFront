@@ -33,7 +33,6 @@ export async function fetchData({ route, api, options = {} }) {
 
   // Traiter la réponse
   const responseData = await result.text();
-  console.log(responseData);
   let jsonData;
   try {
     jsonData = JSON.parse(responseData);

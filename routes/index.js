@@ -1,8 +1,8 @@
 import express from "express";
 const router = express.Router();
 
-const  globals = {
-  API_URL : process.env.API_URL ||  'http://localhost:8000/api'
+const globals = {
+  API_URL: process.env.API_URL || "http://localhost:8000/api",
 };
 
 router.get("/", (req, res) => {
@@ -10,7 +10,19 @@ router.get("/", (req, res) => {
 });
 
 router.get("/inscription", (req, res) => {
-  res.render("layout", { title: "Inscription", view: "pages/register", ...globals });
+  res.render("layout", {
+    title: "Inscription",
+    view: "pages/register",
+    ...globals,
+  });
+});
+
+router.get("/verify-email", (req, res) => {
+  res.render("layout", {
+    title: "Vérification email",
+    view: "pages/verify-email",
+    ...globals,
+  });
 });
 
 export default router;
