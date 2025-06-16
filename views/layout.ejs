@@ -9,7 +9,7 @@
 
 
   <link rel="stylesheet" href="<%= process.env.SITE_URL %>/assets/styles/style.css">
-  <% if(title == "Inscription") { %>
+  <% if(title == "Inscription" || title == "Connexion") { %>
   <link rel="stylesheet" href="<%= process.env.SITE_URL %>/assets/styles/formulaire/formulaire.css">
   <% ;} %>
   <% if(title == "Vérification email") { %>
@@ -33,6 +33,10 @@
   <% if (title == "Vérification email") { %>
   <script type="module" src="<%= process.env.SITE_URL %>/assets/js/verification-email.js"></script>
   <% } %>
+  <% if (title == "Connexion") { %>
+  <script type="module" src="<%= process.env.SITE_URL %>/assets/js/connexion.js"></script>
+  <% } %>
+  <script type="module" src="<%= process.env.SITE_URL %>/assets/js/notification.js"></script>
 </body>
 
 </html>

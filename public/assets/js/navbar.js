@@ -1,3 +1,5 @@
+import { AuthManager } from "./auth.js";
+
 document.addEventListener("DOMContentLoaded", () => {
   const toggleBtn = document.querySelector(".navbar .toggle");
 
@@ -6,4 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
       toggleBtn.classList.toggle("active");
     });
   }
+
+  AuthManager.updateNavbar();
 });

@@ -1,3 +1,5 @@
+@use "../abstracts/variable" as *;
+
 form {
   max-width: 420px;
   margin: 60px auto;
@@ -6,6 +8,23 @@ form {
   border-radius: 16px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
   transition: box-shadow 0.3s ease;
+}
+
+.register-link,
+.forgot-password-link {
+  display: block;
+  text-align: center;
+  margin-top: $spacing-md;
+  color: $primary-color;
+  text-decoration: none;
+  margin-bottom: 20px;
+}
+
+.register-link a {
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 form:hover {
