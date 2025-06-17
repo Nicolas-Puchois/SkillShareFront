@@ -15,6 +15,9 @@
   <% if(title == "Vérification email") { %>
   <link rel="stylesheet" href="<%= process.env.SITE_URL %>/assets/styles/verify-mail/verify-mail.css">
   <% ;} %>
+  <% if(title == "404 - Page non trouvée") { %>
+  <link rel="stylesheet" href="<%= process.env.SITE_URL %>/assets/styles/page_not_found/page_not_found.css">
+  <% ;} %>
 
   <title><%= title || "shareSkill" %></title>
 </head>

@@ -5,7 +5,7 @@ import { AuthManager } from "./auth.js";
 document.addEventListener("DOMContentLoaded", () => {
   //  redirigé si déjà connecté
   if (AuthManager.isLoggedIn()) {
-    window.location.href = "/";
+    // window.location.href = "/";
     return;
   }
   const loginForm = document.querySelector("#login-form");
@@ -66,7 +66,9 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("showNotification", "Connexion réussie !");
         // Redirection immédiate
         AuthManager.updateNavbar();
-        window.location.href = "/";
+        const params = new URLSearchParams(window.location.search);
+        const redirect = params.get("redirect") || "/";
+        window.location.href = redirect;
       }
     } catch (error) {
       message.textContent = error.message;

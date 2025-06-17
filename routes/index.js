@@ -33,4 +33,29 @@ router.get("/connexion", (req, res) => {
   });
 });
 
+router.get("/skills", (req, res) => {
+  res.render("layout", {
+    title: "Les Competences",
+    view: "pages/skills",
+    ...globals,
+  });
+});
+
+router.get("/dashboard", (req, res) => {
+  res.render("layout", {
+    title: "Les Dashboards",
+    view: "pages/dashboard",
+    ...globals,
+  });
+});
+
+// Ajouter cette route en dernier
+router.use((req, res) => {
+  res.status(404).render("layout", {
+    title: "404 - Page non trouvée",
+    view: "pages/404",
+    ...globals,
+  });
+});
+
 export default router;
