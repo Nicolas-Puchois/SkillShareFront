@@ -52,10 +52,18 @@ export class AuthManager {
 
     if (isLoggedIn && user) {
       navLinks.innerHTML = `
-        <li><a href="/profil">Profil</a></li>
-        ${isAdmin ? '<li><a href="/dashboard">Dashboard</a></li>' : ""}
-        <li><a href="/skills">Skills</a></li>
-        <li><a href="#" id="logout-btn">Logout</a></li>
+        <li><a href="/profil"> ${
+          isAdmin
+            ? '<i class="fa-solid fa-user-shield"></i>'
+            : '<i class="fa-solid fa-circle-user"></i>'
+        } Profil</a></li>
+        ${
+          isAdmin
+            ? '<li><a href="/dashboard"><i class="fas fa-table-cells"></i>Dashboard</a></li>'
+            : ""
+        }
+        <li><a href="/skills"><i class="fas fa-medal"></i>Skills</a></li>
+        <li><a href="#" id="logout-btn"><i class="fas fa-plug-circle-xmark"></i>Logout</a></li>
       `;
 
       // gestion deconnexion

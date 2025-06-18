@@ -7,13 +7,16 @@
   <!-- Ajout du favicon -->
   <link rel="icon" type="image/x-icon" href="<%= process.env.SITE_URL %>/assets/images/favicon/favicon.ico">
 
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="<%= process.env.SITE_URL %>/assets/styles/style.css">
   <% if(title == "Inscription" || title == "Connexion") { %>
   <link rel="stylesheet" href="<%= process.env.SITE_URL %>/assets/styles/formulaire/formulaire.css">
   <% ;} %>
   <% if(title == "Vérification email") { %>
   <link rel="stylesheet" href="<%= process.env.SITE_URL %>/assets/styles/verify-mail/verify-mail.css">
+  <% ;} %>
+  <% if(title == "Les Dashboards") { %>
+  <link rel="stylesheet" href="<%= process.env.SITE_URL %>/assets/styles/dashboard/dashboard.css">
   <% ;} %>
   <% if(title == "404 - Page non trouvée") { %>
   <link rel="stylesheet" href="<%= process.env.SITE_URL %>/assets/styles/page_not_found/page_not_found.css">
@@ -40,6 +43,9 @@
   <script type="module" src="<%= process.env.SITE_URL %>/assets/js/connexion.js"></script>
   <% } %>
   <script type="module" src="<%= process.env.SITE_URL %>/assets/js/notification.js"></script>
+  <% if (title == "Les Dashboards") { %>
+  <script type="module" src="<%= process.env.SITE_URL %>/assets/js/dashboard.js"></script>
+  <% } %>
 </body>
 
 </html>

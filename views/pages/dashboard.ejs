@@ -1,6 +1,22 @@
-  <% if (title == "Les Dashboards") { %>
-  <script type="module" src="<%= process.env.SITE_URL %>/assets/js/dashboard.js"></script>
-  <% } %>
-  <script type="module" src="<%= process.env.SITE_URL %>/assets/js/notification.js"></script>
+<section class="dashboard">
+  <h1>Dashboard Administration</h1>
+  <input type="hidden" id="api-url" value="<%= typeof API_URL !== 'undefined' ? API_URL : '' %>">
 
-  <h1>Dashboard /!\ ONLY ADMIN ALLOW /!\</h1>
+  <div class="users-table-container">
+    <table id="users-table">
+      <thead>
+        <tr>
+          <th>Avatar</th>
+          <th>Nom d'utilisateur</th>
+          <th>Email</th>
+          <th>Rôle</th>
+          <th>Vérifié</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Les données seront injectées ici via JavaScript -->
+      </tbody>
+    </table>
+  </div>
+</section>
