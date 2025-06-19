@@ -1,0 +1,64 @@
+@use "../abstracts/variable" as *;
+
+.dashboard {
+  padding: $spacing-xl;
+
+  h1 {
+    margin-bottom: $spacing-xl;
+  }
+
+  .users-table-container {
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: $spacing-lg;
+    background: $white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-radius: $border-radius;
+  }
+
+  th,
+  td {
+    padding: $spacing-md;
+    text-align: left;
+    border-bottom: 1px solid $gray-200;
+  }
+
+  th {
+    background: $gray-100;
+    font-weight: bold;
+    color: $gray-700;
+  }
+
+  .user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: $spacing-sm;
+
+    button {
+      padding: $spacing-xs $spacing-sm;
+      border: none;
+      border-radius: $border-radius-sm;
+      cursor: pointer;
+
+      &.edit {
+        background: $primary-color;
+        color: white;
+      }
+
+      &.delete {
+        background: $danger-color;
+        color: white;
+      }
+    }
+  }
+}
