@@ -49,6 +49,14 @@ router.get("/dashboard", (req, res) => {
   });
 });
 
+router.get("/profil", (req, res) => {
+  res.render("layout", {
+    title: "Profil",
+    view: "pages/profil",
+    ...globals,
+  });
+});
+
 // Ajouter cette route en dernier
 router.use((req, res) => {
   res.status(404).render("layout", {

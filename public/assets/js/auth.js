@@ -1,8 +1,23 @@
 export class AuthManager {
   static isLoggedIn() {
     const token = localStorage.getItem("JWTtoken");
-    const notAllowedPaths = ["%2Fskills"];
+    const currentPath = window.location.pathname;
+    const notAllowedPaths = ["/skills", "/profil"];
     const adminPaths = ["%2Fdashboard"];
+
+    // Vérifie si la page nécessite une connexion
+    if (!token && notAllowedPaths.includes(currentPath)) {
+      localStorage.setItem(
+        "showNotification",
+        "Vous devez être connecté pour accéder à cette page"
+      );
+
+      window.location.href = `/connexion?redirect=${encodeURIComponent(
+        currentPath
+      )}`;
+
+      return false;
+    }
 
     if (token && this.isTokenExpired(token)) {
       localStorage.setItem(
@@ -15,8 +30,8 @@ export class AuthManager {
     }
 
     // Vérifie si la page est réservée aux admins
-    const currentPath = encodeURIComponent(window.location.pathname);
-    if (adminPaths.includes(currentPath) && !this.isAdmin()) {
+    const encodedPath = encodeURIComponent(window.location.pathname);
+    if (adminPaths.includes(encodedPath) && !this.isAdmin()) {
       localStorage.setItem(
         "showNotification",
         "Accès non autorisé - Administrateurs uniquement"
@@ -25,12 +40,6 @@ export class AuthManager {
       return false;
     }
 
-    if (!token) {
-      if (notAllowedPaths.includes(currentPath)) {
-        window.location.href = `/connexion?redirect=${currentPath}`;
-      }
-      return false;
-    }
     return true;
   }
 
@@ -99,11 +108,13 @@ export class AuthManager {
     try {
       const payload = JSON.parse(atob(token.split(".")[1]));
       return (
-        payload.role &&
-        Array.isArray(payload.role) &&
-        payload.role.includes("ROLE_ADMIN")
+        payload.roles &&
+        Array.isArray(payload.roles) &&
+        payload.roles.includes("ROLE_ADMIN")
       );
+      // Changement de 'role' en 'roles' pour correspondre au format du token
     } catch (error) {
+      console.error("Erreur parsing token:", error);
       return false;
     }
   }

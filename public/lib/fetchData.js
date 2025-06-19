@@ -1,9 +1,15 @@
 /**
  * Utilitaire pour gérer les appels API
  */
+/**
+ * Utilitaire pour gérer les appels API
+ */ // Ajouter le token JWT si présent
 export async function fetchData({ route, api, options = {} }) {
+  const token = localStorage.getItem("JWTtoken");
   const headers = {
     Accept: "application/json",
+    "Content-Type": "application/json",
+    ...(token && { Authorization: `Bearer ${token}` }),
     ...options.headers,
   };
 
