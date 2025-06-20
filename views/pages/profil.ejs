@@ -38,4 +38,27 @@
 
     </form>
   </div>
+  <div class="profile-card avatar-section">
+    <h3>Photo de profil</h3>
+    <div class="avatar-container">
+      <img id="user-avatar" src="" alt="Avatar" class="avatar">
+      <input type="hidden" id="api-url-avatar" value="<%= typeof API_URL_API_URL_UPLOAD_IMG !== 'undefined' ? API_URL_API_URL_UPLOAD_IMG : '' %>">
+
+    </div>
+    <form id="avatar-form" enctype="multipart/form-data">
+      <div class="file-input-wrapper">
+        <input type="file" name="avatar-input" id="avatar-input" accept="image/*">
+        <button type="submit" class="btn btn-primary">Modifier l'avatar</button>
+      </div>
+    </form>
+    <!-- Section Sécurité  -->
+    <div class="profile-card security">
+      <h3>Sécurité</h3>
+      <div class="password-reset">
+        <p>Pour des raisons de sécurité, la modification du mot de passe sa fait via un lien envoyé par email.</p>
+        <button id="request-reset-btn" class="btn btn-primary">Recevoir un lien de réinitialisation</button>
+        <div id="reset-msg"></div>
+      </div>
+    </div>
+  </div>
 </section>

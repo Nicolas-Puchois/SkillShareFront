@@ -4,6 +4,7 @@ import { validateRegisterForm } from "../../services/validate.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const API_URL = document.querySelector("#api-url").value;
+  const API_URL_UPLOAD_AVATAR = document.querySelector("#api-url-avatar").value;
   const infoForm = document.querySelector("#info-form");
   const msg = document.querySelector("#verify-msg");
   const msgContainer = document.querySelector(".message-container");
@@ -66,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     try {
       const result = await fetchData({
-        route: "/api/user/update",
+        route: "/user/update",
         api: API_URL,
         options: {
           method: "POST",
@@ -88,6 +89,83 @@ document.addEventListener("DOMContentLoaded", () => {
       msg.textContent = error.message;
       msg.style.color = "red";
       msgContainer.style.display = "block";
+    }
+  });
+
+  // Gérer l'avatar
+  const avatarImg = document.getElementById("user-avatar");
+
+  if (user.avatar) {
+    avatarImg.src = `${API_URL_UPLOAD_AVATAR}/uploads/avatar/${user.avatar}`;
+  } else {
+    avatarImg.src = "/images/avatar_par_defaut.png";
+  }
+
+  // Gérer le formulaire d'avatar
+  const avatarForm = document.querySelector("#avatar-form");
+  const avatarInput = document.querySelector("#avatar-input");
+  const avatarMsg = document.getElementById("avatar-msg");
+
+  avatarForm?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    // Préparer le fichier pour l'upload
+    const formData = new FormData();
+    const file = avatarInput.files[0];
+    if (!file) {
+      avatarMsg.textContent = "Veuillez sélectionner un fichier";
+      avatarMsg.className = "error";
+      return;
+    }
+    formData.append("avatar", file);
+
+    try {
+      const result = await fetchData({
+        route: "/user/update-avatar",
+        api: API_URL,
+        options: {
+          method: "POST",
+          body: formData,
+        },
+      });
+
+      if (result.success) {
+        // Mettre à jour l'avatar dans le localStorage
+        const updatedUser = { ...user, avatar: result.avatar };
+        localStorage.setItem("user", JSON.stringify(updatedUser));
+
+        // Mettre à jour l'image
+        avatarImg.src = `${API_URL_UPLOAD_AVATAR}/avatar/${result.avatar}`;
+      }
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour de l'avatar:", error);
+    }
+  });
+
+  // Gérer la demande de réinitialisation du mot de passe
+  const resetBtn = document.getElementById("request-reset-btn");
+  const resetMsg = document.getElementById("reset-msg");
+
+  resetBtn?.addEventListener("click", async () => {
+    try {
+      const result = await fetchData({
+        route: "/user/request-reset",
+        api: API_URL,
+        options: {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: user.email }),
+        },
+      });
+
+      if (result.success) {
+        resetMsg.textContent = "Un email de réinitialisation vous a été envoyé";
+        resetMsg.className = "success";
+        resetBtn.disabled = true;
+      }
+    } catch (error) {
+      resetMsg.textContent = error.message || "Erreur lors de la demande";
+      resetMsg.className = "error";
     }
   });
 });

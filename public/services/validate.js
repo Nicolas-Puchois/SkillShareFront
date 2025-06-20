@@ -8,14 +8,17 @@ export function validateRegisterForm(form) {
     "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$"
   );
   const email = formData.get("email")?.trim();
-  if (formData.get("email") != null || !emailRegex.test(email)) {
+  if (/*formData.get("email") != null && */ !emailRegex.test(email)) {
     errors.email = "L'Email est invalide. Email valide : test@monmail.com";
   }
+
   const passwordRegexPattern =
     /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=\[\]{};':"\\|,.<>/?`~])[A-Za-z\d!@#$%^&*()_\-+=\[\]{};':"\\|,.<>/?`~]{12,}$/;
   const strongPasswordRegex = new RegExp(passwordRegexPattern);
   const password = formData.get("password")?.trim();
-  if (formData.get("password") != null || !strongPasswordRegex.test(password)) {
+  if (
+    /*formData.get("password") != null && */ !strongPasswordRegex.test(password)
+  ) {
     errors.password =
       " Mot de passe invalide : 12 caractères minimum, 1 majuscule, 1 chiffre, 1 caractère spécial";
   }

@@ -3,6 +3,8 @@ const router = express.Router();
 
 const globals = {
   API_URL: process.env.API_URL || "http://localhost:8000/api",
+  API_URL_API_URL_UPLOAD_IMG:
+    process.env.API_URL_UPLOAD_IMG || "http://localhost:8000",
 };
 
 router.get("/", (req, res) => {
@@ -53,6 +55,15 @@ router.get("/profil", (req, res) => {
   res.render("layout", {
     title: "Profil",
     view: "pages/profil",
+    ...globals,
+  });
+});
+
+router.get("/reset-password", (req, res) => {
+  res.render("layout", {
+    title: "Réinitialisation du mot de passe",
+    view: "pages/reset-password",
+    token: req.query.token,
     ...globals,
   });
 });

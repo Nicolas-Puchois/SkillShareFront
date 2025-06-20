@@ -9,7 +9,7 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="<%= process.env.SITE_URL %>/assets/styles/style.css">
-  <% if(title == "Inscription" || title == "Connexion" || title == "Profil") { %>
+  <% if(title == "Inscription" || title == "Connexion" || title == "Profil" || title == "Réinitialisation du mot de passe") { %>
   <link rel="stylesheet" href="<%= process.env.SITE_URL %>/assets/styles/formulaire/formulaire.css">
   <% ;} %>
   <% if(title == "Vérification email") { %>
@@ -48,6 +48,12 @@
   <% } %>
   <% if (title == "Profil") { %>
   <script type="module" src="<%= process.env.SITE_URL %>/assets/js/profil.js"></script>
+  <% } %>
+  <% if (title == "Profil") { %>
+  <script type="module" src="<%= process.env.SITE_URL %>/assets/js/profil.js"></script>
+  <% } %>
+  <% if (title == "Réinitialisation du mot de passe") { %>
+  <script type="module" src="<%= process.env.SITE_URL %>/assets/js/reset-password.js"></script>
   <% } %>
 </body>
 
